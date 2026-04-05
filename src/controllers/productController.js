@@ -1,47 +1,50 @@
 class ProductController {
+  constructor(productService) {
+    this.productService = productService
+  }
+
   async getAllProducts(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Products retrieved successfully', data: [] })
-    } catch (error) {
-      res.status(500).json({ error: 'Error retrieving products' })
-    }
+    const products = await this.productService.getAllProducts()
+
+    return res
+      .status(200)
+      .json({ message: 'Products retrieved successfully', data: products })
   }
-  
+
   async getProductById(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Product retrieved successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error retrieving product' })
-    }
+    const product = await this.productService.getProductById(req.params.id)
+
+    return res
+      .status(200)
+      .json({ message: 'Product retrieved successfully', data: product })
   }
-  
+
   async createProduct(req, res) {
-    try {
-      // SERVICE
-      return res.status(201).json({ message: 'Product created successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error creating product' })
-    }
+    const product = await this.productService.createProduct(req.body)
+
+    return res
+      .status(201)
+      .json({ message: 'Product created successfully', data: product })
   }
-  
+
   async updateProduct(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Product updated successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error updating product' })
-    }
+    const product = await this.productService.updateProduct(
+      req.params.id,
+      req.body
+    )
+
+    return res
+      .status(200)
+      .json({ message: 'Product updated successfully', data: product })
   }
 
   async deleteProduct(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Product deleted successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error deleting product' })
-    }
+    await this.productService.deleteProduct(req.params.id)
+
+    return res.status(200).json({
+      message: 'Product deleted successfully',
+      data: { id: req.params.id }
+    })
   }
 }
 
