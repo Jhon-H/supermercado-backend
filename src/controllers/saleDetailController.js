@@ -1,47 +1,55 @@
 class SaleDetailController {
+  constructor(saleDetailService) {
+    this.saleDetailService = saleDetailService
+  }
+
   async getAllSaleDetails(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Sale details retrieved successfully', data: [] })
-    } catch (error) {
-      res.status(500).json({ error: 'Error retrieving sale details' })
-    }
+    const saleDetails = await this.saleDetailService.getAllSaleDetails()
+
+    return res
+      .status(200)
+      .json({
+        message: 'Sale details retrieved successfully',
+        data: saleDetails
+      })
   }
-  
+
   async getSaleDetailById(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Sale detail retrieved successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error retrieving sale detail' })
-    }
+    const saleDetail = await this.saleDetailService.getSaleDetailById(
+      req.params.id
+    )
+
+    return res
+      .status(200)
+      .json({ message: 'Sale detail retrieved successfully', data: saleDetail })
   }
-  
+
   async createSaleDetail(req, res) {
-    try {
-      // SERVICE
-      return res.status(201).json({ message: 'Sale detail created successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error creating sale detail' })
-    }
+    const saleDetail = await this.saleDetailService.createSaleDetail(req.body)
+
+    return res
+      .status(201)
+      .json({ message: 'Sale detail created successfully', data: saleDetail })
   }
-  
+
   async updateSaleDetail(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Sale detail updated successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error updating sale detail' })
-    }
+    const saleDetail = await this.saleDetailService.updateSaleDetail(
+      req.params.id,
+      req.body
+    )
+
+    return res
+      .status(200)
+      .json({ message: 'Sale detail updated successfully', data: saleDetail })
   }
 
   async deleteSaleDetail(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Sale detail deleted successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error deleting sale detail' })
-    }
+    await this.saleDetailService.deleteSaleDetail(req.params.id)
+
+    return res.status(200).json({
+      message: 'Sale detail deleted successfully',
+      data: { id: req.params.id }
+    })
   }
 }
 
