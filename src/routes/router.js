@@ -4,6 +4,7 @@ import providerRouter from './providerRouter.js'
 import productRouter from './productRouter.js'
 import saleRouter from './saleRouter.js'
 import saleDetailRouter from './saleDetailRouter.js'
+import seedRouter from './seedRouter.js'
 import { errorHandler } from '../errors/errorHandler.js'
 
 const rootRouter = Router()
@@ -14,6 +15,7 @@ rootRouter.use(`${basePath}/providers`, providerRouter)
 rootRouter.use(`${basePath}/products`, productRouter)
 rootRouter.use(`${basePath}/sales`, saleRouter)
 rootRouter.use(`${basePath}/sale-details`, saleDetailRouter)
+rootRouter.use(`${basePath}/seeds`, seedRouter)
 
 rootRouter.use((err, _req, res, _next) => errorHandler(err, res))
 
