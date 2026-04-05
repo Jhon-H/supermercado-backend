@@ -1,47 +1,50 @@
 class ProviderController {
+  constructor(providerService) {
+    this.providerService = providerService
+  }
+
   async getAllProviders(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Providers retrieved successfully', data: [] })
-    } catch (error) {
-      res.status(500).json({ error: 'Error retrieving providers' })
-    }
+    const providers = await this.providerService.getAllProviders()
+
+    return res
+      .status(200)
+      .json({ message: 'Providers retrieved successfully', data: providers })
   }
-  
+
   async getProviderById(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Provider retrieved successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error retrieving provider' })
-    }
+    const provider = await this.providerService.getProviderById(req.params.id)
+
+    return res
+      .status(200)
+      .json({ message: 'Provider retrieved successfully', data: provider })
   }
-  
+
   async createProvider(req, res) {
-    try {
-      // SERVICE
-      return res.status(201).json({ message: 'Provider created successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error creating provider' })
-    }
+    const provider = await this.providerService.createProvider(req.body)
+
+    return res
+      .status(201)
+      .json({ message: 'Provider created successfully', data: provider })
   }
-  
+
   async updateProvider(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Provider updated successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error updating provider' })
-    }
+    const provider = await this.providerService.updateProvider(
+      req.params.id,
+      req.body
+    )
+
+    return res
+      .status(200)
+      .json({ message: 'Provider updated successfully', data: provider })
   }
 
   async deleteProvider(req, res) {
-    try {
-      // SERVICE
-      return res.status(200).json({ message: 'Provider deleted successfully', data: {} })
-    } catch (error) {
-      res.status(500).json({ error: 'Error deleting provider' })
-    }
+    await this.providerService.deleteProvider(req.params.id)
+
+    return res.status(200).json({
+      message: 'Provider deleted successfully',
+      data: { id: req.params.id }
+    })
   }
 }
 
