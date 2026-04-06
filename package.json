@@ -5,6 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "swagger:gen": "node --env-file=.env src/config/swagger.js",
+    "prestart": "npm run swagger:gen",
     "start": "node --env-file=.env src/server.js",
     "dev": "node --watch --env-file=.env src/server.js"
   },
@@ -15,6 +17,8 @@
     "express": "5.2.1",
     "pg": "8.20.0",
     "pg-hstore": "2.3.4",
-    "sequelize": "6.37.8"
+    "sequelize": "6.37.8",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   }
 }

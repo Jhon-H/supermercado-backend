@@ -17,7 +17,8 @@ El sistema está construido con la arquitectura cliente-servidor y MVC.
 
 ### 👤 Autor
 
-- Jhon Jairo Hernandez Castañeda
+- **Jhon Jairo Hernandez Castañeda**
+  - Encargado de la construcción completa: controllers, servicios, modelos, manejo de errores, scaffolding inicial con Express.js
 
 ## Iniciar proyecto
 
@@ -60,14 +61,31 @@ Para ejecutar este proyecto localmente, por favor siga las instrucciones a conti
    ```sh
    npm run start
    ```
+6. Acceder a la documentación Swagger
+   ```
+   http://localhost:3000/api/docs
+   ```
+
+### 🔎 Validaciones e integridad de datos
+
+Las validaciones como email único, integridad referencial y restricciones de campos se delegan a la base de datos a través de Sequelize (en la definición de los modelos). Al insertar o actualizar registros, estos errores son capturados en la capa de servicios y se transforman en respuestas claras para el usuario:
+
+- **400** – Validación de campos (precio <= 0, stock negativo, formato de email, etc.)
+- **404** – Recurso no encontrado
+- **409** – Conflicto de unicidad (email duplicado)
+- **500** – Error interno del servidor
 
 ## Ejemplos
 
-### 📦 Colección endpoints
+### 📘 Documentación Swagger
 
-Para probar los endpoints de la API, puede importar la colección de Postman incluida en el proyecto:
+Una vez el servidor esté corriendo, puede explorar y probar todos los endpoints desde la interfaz web de Swagger en:
 
-📄 [`supermercado.json`](./supermercado.json)
+```
+http://localhost:3000/api/docs
+```
+
+Allí encontrará cada endpoint documentado con sus parámetros, cuerpos de solicitud esperados y los posibles códigos de respuesta (200, 201, 400, 404, 409, 500).
 
 ### 🌱 Seed de datos iniciales
 
@@ -179,6 +197,26 @@ DELETE /api/products/1
 ```
 
 Elimina, usando soft delete, el producto con ID 1. Si el producto tiene ventas asociadas, la eliminación será rechazada por las restricciones de integridad (**OnDelete Restrict**).
+
+---
+
+**Crear una venta**
+
+```
+POST /api/sales
+```
+
+```json
+{
+  "userId": 1,
+  "details": [
+    { "productId": 1, "quantity": 3 },
+    { "productId": 2, "quantity": 1 }
+  ]
+}
+```
+
+Crea una venta asociada al usuario con ID 1. El **total se calcula automáticamente** a partir del precio actual de cada producto multiplicado por la cantidad. También se crean los detalles de venta correspondientes.
 
 ---
 
