@@ -28,11 +28,10 @@ router.post(
   '/sales',
   /* #swagger.tags = ['Sales']
      #swagger.summary = 'Crear una venta'
-     #swagger.description = 'Crea una venta con sus detalles. El total se calcula automáticamente a partir de los productos.'
+     #swagger.description = 'Crea una venta. El total inicia en 0 y se actualiza automáticamente mediante triggers al agregar detalles de venta.'
      #swagger.requestBody = { required: true, content: { 'application/json': { schema: { $ref: '#/definitions/SaleInput' } } } }
      #swagger.responses[201] = { description: 'Venta creada', schema: { $ref: '#/definitions/SuccessResponse' } }
      #swagger.responses[400] = { description: 'Datos inválidos', schema: { $ref: '#/definitions/ErrorValidation' } }
-     #swagger.responses[404] = { description: 'Producto no encontrado', schema: { $ref: '#/definitions/ErrorNotFound' } }
      #swagger.responses[500] = { description: 'Error interno', schema: { $ref: '#/definitions/ErrorServer' } }
   */
   () => {}

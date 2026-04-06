@@ -26,7 +26,11 @@ class SaleService {
 
   async createSale(data) {
     try {
-      return await Sale.create(data)
+      return await Sale.create({
+        userId: data.userId,
+        date: data.date,
+        total: 0
+      })
     } catch (error) {
       this._handleConstraintError(error)
     }

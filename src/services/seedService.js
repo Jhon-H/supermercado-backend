@@ -97,7 +97,7 @@ class SeedService {
       )
 
       const sale1 = await Sale.create(
-        { userId: user1.id, date: new Date(), total: 54600 },
+        { userId: user1.id, date: new Date(), total: 0 },
         { transaction }
       )
 
@@ -127,18 +127,13 @@ class SeedService {
             quantity: 1,
             price: 8900
           },
-          {
-            saleId: sale1.id,
-            productId: product6.id,
-            quantity: 2,
-            price: 6700
-          }
+          { saleId: sale1.id, productId: product6.id, quantity: 2, price: 6700 }
         ],
         { transaction }
       )
 
       const sale2 = await Sale.create(
-        { userId: user2.id, date: new Date(), total: 11900 },
+        { userId: user2.id, date: new Date(), total: 0 },
         { transaction }
       )
 
@@ -150,12 +145,7 @@ class SeedService {
             quantity: 2,
             price: 4200
           },
-          {
-            saleId: sale2.id,
-            productId: product1.id,
-            quantity: 1,
-            price: 3500
-          }
+          { saleId: sale2.id, productId: product1.id, quantity: 1, price: 3500 }
         ],
         { transaction }
       )

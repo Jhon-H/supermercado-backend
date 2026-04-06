@@ -75,6 +75,8 @@ Las validaciones como email único, integridad referencial y restricciones de ca
 - **409** – Conflicto de unicidad (email duplicado)
 - **500** – Error interno del servidor
 
+Además, el **total de cada venta se calcula automáticamente mediante triggers** en PostgreSQL. Al insertar, actualizar o eliminar un detalle de venta (`saleDetail`), un trigger recalcula el total de la venta asociada como la suma de `quantity * price` de todos sus detalles.
+
 ## Ejemplos
 
 ### 📘 Documentación Swagger
@@ -100,7 +102,7 @@ No requiere body. Crea automáticamente:
 - 3 usuarios (1 admin, 2 cajeros)
 - 2 proveedores
 - 6 productos (3 por proveedor)
-- 2 ventas con sus detalles (una con 5 productos y otra con 2)
+- 2 ventas con detalles (el total se calcula automáticamente por triggers)
 - 1 usuario sin ventas (para pruebas de consultas)
 
 ### 🧪 Ejemplos de uso de la API
@@ -209,14 +211,30 @@ POST /api/sales
 ```json
 {
   "userId": 1,
-  "details": [
-    { "productId": 1, "quantity": 3 },
-    { "productId": 2, "quantity": 1 }
-  ]
+  "date": "2020-06-15T10:00:00.000Z"
 }
 ```
 
-Crea una venta asociada al usuario con ID 1. El **total se calcula automáticamente** a partir del precio actual de cada producto multiplicado por la cantidad. También se crean los detalles de venta correspondientes.
+Crea una venta asociada al usuario con ID 1 con fecha del 15 de junio de 2020. El **total inicia en 0** y se actualiza automáticamente mediante triggers cuando se agregan detalles de venta.
+
+---
+
+**Agregar un detalle a la venta**
+
+```
+POST /api/sale-details
+```
+
+```json
+{
+  "saleId": 1,
+  "productId": 1,
+  "quantity": 3,
+  "price": 3500
+}
+```
+
+Agrega 3 unidades del producto con ID 1 a la venta con ID 1. El trigger en PostgreSQL recalculará automáticamente el total de la venta.
 
 ---
 

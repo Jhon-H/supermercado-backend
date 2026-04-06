@@ -63,10 +63,7 @@ const doc = {
     },
     SaleInput: {
       $userId: 1,
-      $details: [
-        { $productId: 1, $quantity: 3 },
-        { $productId: 2, $quantity: 1 }
-      ]
+      $date: '2020-06-15T10:00:00.000Z'
     },
     SaleDetail: {
       id: 1,

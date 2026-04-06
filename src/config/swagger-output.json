@@ -1251,7 +1251,7 @@
           "Sales"
         ],
         "summary": "Crear una venta",
-        "description": "Crea una venta con sus detalles. El total se calcula automáticamente a partir de los productos.",
+        "description": "Crea una venta. El total inicia en 0 y se actualiza automáticamente mediante triggers al agregar detalles de venta.",
         "responses": {
           "201": {
             "description": "Venta creada",
@@ -1287,24 +1287,6 @@
             },
             "schema": {
               "$ref": "#/components/schemas/ErrorValidation"
-            }
-          },
-          "404": {
-            "description": "Producto no encontrado",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorNotFound"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorNotFound"
-                }
-              }
-            },
-            "schema": {
-              "$ref": "#/components/schemas/ErrorNotFound"
             }
           },
           "500": {
@@ -2216,30 +2198,14 @@
             "type": "number",
             "example": 1
           },
-          "details": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "productId": {
-                  "type": "number",
-                  "example": 2
-                },
-                "quantity": {
-                  "type": "number",
-                  "example": 1
-                }
-              },
-              "required": [
-                "productId",
-                "quantity"
-              ]
-            }
+          "date": {
+            "type": "string",
+            "example": "2020-06-15T10:00:00.000Z"
           }
         },
         "required": [
           "userId",
-          "details"
+          "date"
         ],
         "xml": {
           "name": "SaleInput"

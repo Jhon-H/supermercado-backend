@@ -23,7 +23,7 @@ const Sale = sequelize.define(
       allowNull: false,
       validate: {
         isDecimal: { msg: 'Total must be a valid decimal number' },
-        min: { args: [0.01], msg: 'Total must be greater than 0' }
+        min: { args: [0], msg: 'Total must be greater than or equal to 0' }
       }
     }
   },
