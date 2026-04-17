@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
 import { readFileSync } from 'node:fs'
 import rootRouter from './routes/router.js'
@@ -16,6 +17,7 @@ const port = process.env.PORT || 3000
 const db = new DatabaseSync(sequelizeConfig)
 
 app.use(express.json())
+app.use(cors());
 app.use(`${basePath}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(rootRouter)
 
